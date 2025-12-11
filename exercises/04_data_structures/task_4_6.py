@@ -28,3 +28,5 @@ Next-Hop              {}
 Last update           {}
 Outbound Interface    {}
 """
+ospf_par = ospf_route.split()
+print(template.format(ospf_par[0], ospf_par[1].strip('[]'), ospf_par[3].strip(','), ospf_par[4].strip(','), ospf_par[5]))

@@ -49,3 +49,32 @@ bin_ip = "00001010000000010000000111000011"
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+
+ip_mask = input("Enter ip address in format a.b.c.d/mm: ")
+(ip, mask) = ip_mask.split('/')
+(ip_ok1, ip_ok2, ip_ok3, ip_ok4) = ip.split('.')
+ip_bin = '{:08b}{:08b}{:08b}{:08b}'.format(int(ip_ok1), int(ip_ok2), int(ip_ok3), int(ip_ok4))
+#print(ip_bin)
+mask_bit = "1" * int(mask) + "0" * (32 - int(mask))
+ip_net = ip_bin[0:int(mask)] + "0" * (32 - int(mask))
+#print(ip_net)
+ip_ok1 = int(ip_net[0:8], 2)
+ip_ok2 = int(ip_net[8:16], 2)
+ip_ok3 = int(ip_net[16:24], 2)
+ip_ok4 = int(ip_net[24:32], 2)
+
+mask_ok1 = int(mask_bit[0:8], 2)
+mask_ok2 = int(mask_bit[8:16], 2)
+mask_ok3 = int(mask_bit[16:24], 2)
+mask_ok4 = int(mask_bit[24:32], 2)
+template = '''
+Network:
+{0:<8}  {1:<8}  {2:<8}  {3:<8}
+{0:08b}  {1:08b}  {2:08b}  {3:08b}
+
+Mask:
+/{4}
+{5:<8}  {6:<8}  {7:<8}  {8:<8}
+{5:08b}  {6:08b}  {7:08b}  {8:08b}
+'''
+print(template.format(ip_ok1, ip_ok2, ip_ok3, ip_ok4, mask, mask_ok1, mask_ok2, mask_ok3, mask_ok4))

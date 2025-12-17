@@ -20,3 +20,15 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+
+with open('CAM_table.txt') as f:
+	for line in f:
+		string = line.split()
+		if len(string) == 4:
+			vlan = string[0]
+			mac = string[1]
+			interface = string[3]
+			mac_oct = mac.split('.')
+			if len(mac_oct) == 3:
+				print(f"{vlan:10} {mac:20} {interface:10}")
+

@@ -40,3 +40,23 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+
+with open('CAM_table.txt') as f:
+	vlan_table = []
+	for line in f:
+		string = line.split()
+		if len(string) == 4:
+			vlan = string[0]
+			mac = string[1]
+			interface = string[3]
+			mac_oct = mac.split('.')
+			if len(mac_oct) == 3:
+				vlan = int(vlan)
+				mac_record = []
+				mac_record.append(vlan)
+				mac_record.append(mac)
+				mac_record.append(interface)
+				vlan_table.append(mac_record)
+	for vl in sorted(vlan_table):
+		print(f"{vl[0]:<20} {vl[1]:<20} {vl[2]:<10}")
+

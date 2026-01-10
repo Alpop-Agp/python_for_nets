@@ -74,9 +74,31 @@
 
 """
 
+from task_11_1 import parse_cdp_neighbors
+from draw_network_graph import draw_topology
+from pprint import pprint
 infiles = [
     "sh_cdp_n_sw1.txt",
     "sh_cdp_n_r1.txt",
     "sh_cdp_n_r2.txt",
     "sh_cdp_n_r3.txt",
 ]
+def create_network_map(filenames):
+	Records = {}
+	for file in filenames:
+		with open(file) as f:
+			TempRecords = parse_cdp_neighbors(f.read())
+			Records.update(TempRecords)
+	return(Records)
+
+def unique_network_map(topology_dict):
+	topology_dict_unique = topology_dict.copy()
+	for key in topology_dict.keys():
+		if key in topology_dict.values():
+			del topology_dict_unique[key]
+			topology_dict[key] = ''
+	return topology_dict_unique
+
+if __name__ == "__main__":
+	topology = create_network_map(infiles)
+	draw_topology(unique_network_map(topology), 'task_11_2a_topo')

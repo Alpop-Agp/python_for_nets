@@ -34,3 +34,26 @@
  '172.21.41.129', '172.21.41.130', '172.21.41.131', '172.21.41.132']
 
 """
+from pprint import pprint
+ip_addresses = [
+    "192.168.1.1-3",
+    "8.8.8.8",
+    "1.1.1.1-1.1.1.2",
+]
+def convert_ranges_to_ip_list(ip_addresses):
+	ip_list = []
+	for ip in ip_addresses:
+		if ip.find('-') and not ip.find('-') == -1:
+			ip1, ip2 = ip.split('-')
+			ip1 = ip1.split('.')[3]
+			if not ip2.isdigit():
+				ip2 = ip2.split('.')[3]
+			for last_oktet_ip in range(int(ip1),int(ip2)+1):
+				new_ip = '.'.join(ip.split('.')[0:3]) + '.' + str(last_oktet_ip)
+				ip_list.append(new_ip)
+		else:
+			ip_list.append(ip)
+	return ip_list
+
+if __name__ == "__main__":
+	pprint(convert_ranges_to_ip_list(ip_addresses))
